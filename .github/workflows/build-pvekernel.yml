@@ -16,6 +16,7 @@ env:
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: true
   TZ: Asia/Shanghai
+  LOCAL_BRANCH: dev
 
 jobs:
   build:
@@ -31,6 +32,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         git pull
+        git checkout $LOCAL_BRANCH
         #sudo chmod a+x $SCRIPTS_PATH/init_env.sh && sudo -E $SCRIPTS_PATH/init_env.sh
         
     - name: Clone source code
