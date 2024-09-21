@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - dev
     paths:
       - '.configmaster'
 
@@ -97,5 +97,5 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: ${{ format('{0}-roforest', steps.getverion.outputs.version) }} 
+        name: ${{ format('{0}-kaqinuo', steps.getverion.outputs.version) }} 
         path: pve-kernel/release

@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        branch: ['master','bookworm-6.5','bookworm-6.2','bullseye-6.2','pve-kernel-5.15']
+        branch: ['master','bookworm-6.5']
     #if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -32,6 +32,7 @@ jobs:
       id: update
       run: |
         Config=`echo ${{ matrix.branch }} | awk -F '-' '{print $1 $2 $3}' | awk -F '.' '{print $1 $2}'`
+        echo $Config
         Path='${{ github.workspace }}/.config'$Config
         CurVer=`cat $Path`
         SubVer=`curl -s https://git.proxmox.com/?p=pve-kernel.git\;a=log\;h=refs/heads/${{ matrix.branch }} |  grep -o "bump.*" | head -n 1 | awk -F '<' '{print $1}' | awk '{print $NF}'`
@@ -49,8 +50,8 @@ jobs:
       continue-on-error: true
       if: steps.update.outputs.status == 'success'
       run: |
-        git config --local user.email "79748239+roforest@users.noreply.github.com"
-        git config --local user.name "roforest"
+        git config --local user.email "16986157+KaQiNuo@users.noreply.github.com"
+        git config --local user.name "KaQiNuo"
         git pull
         git commit -m '${{ steps.update.outputs.version }}' -a
         git push
