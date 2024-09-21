@@ -9,4 +9,6 @@ apt-get install -y git nano screen patch fakeroot build-essential devscripts lib
 df -h
 useradd build -d /home/build/pve-kernel
 chown -R build /home/build/pve-kernel
+git config --local user.email 16986157+KaQiNuo@users.noreply.github.com
+git config --local user.name KaQiNuo
 su - build -c "make"
