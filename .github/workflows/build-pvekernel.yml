@@ -17,7 +17,8 @@ env:
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: true
   TZ: Asia/Shanghai
-  LOCAL_BRANCH: dev
+  EMAIL: 16986157+KaQiNuo@users.noreply.github.com
+  USERENAME: KaQiNuo
 
 jobs:
   build:
@@ -32,8 +33,9 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        git config --local user.email $EMAIL
+        git config --local user.name $USERENAME
         git pull
-        git checkout $LOCAL_BRANCH
         #sudo chmod a+x $SCRIPTS_PATH/init_env.sh && sudo -E $SCRIPTS_PATH/init_env.sh
         
     - name: Clone source code
