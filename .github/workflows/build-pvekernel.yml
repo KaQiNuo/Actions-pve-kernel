@@ -10,7 +10,7 @@ on:
 
 env:
   #REPO_URL: https://git.proxmox.com/git/pve-kernel.git
-  REPO_URL: https://github.com/proxmox/pve-kernel.git
+  REPO_URL: https://${{ secrets.REPO_TOKEN }}@github.com/proxmox/pve-kernel.git
   REPO_BRANCH: master
   CONFIG_FILE: .config
   SCRIPTS_PATH: ${{ github.workspace }}/scripts
@@ -78,12 +78,16 @@ jobs:
       id: compile
       run: |
         sudo chmod a+x $SCRIPTS_PATH/dockerun_bookworm.sh
-        ls -l ${{ github.workspace }}
+        
         #sudo docker run -v ${{ github.workspace }}:/home/build debian:bookworm /home/build/scripts/dockerun_bookworm.sh
         cd pve-kernel
+        echo $GITHUB_OUTPUT
         git config --global  user.name $USERENAME
         git config --global  user.password $GITHUB_TOKEN
+        git config --global  user.test $GITHUB_TOKEN
         git config list
+
+        git remote -v
         make
         echo "status=success" >> $GITHUB_OUTPUT
       env:
