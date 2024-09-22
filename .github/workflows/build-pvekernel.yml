@@ -77,17 +77,9 @@ jobs:
       id: compile
       run: |
         sudo chmod a+x $SCRIPTS_PATH/dockerun_bookworm.sh
-        
-        #sudo docker run -v ${{ github.workspace }}:/home/build debian:bookworm /home/build/scripts/dockerun_bookworm.sh
-        cd pve-kernel
-        echo $GITHUB_OUTPUT
-        git config --global  user.name $USERENAME
-        git config --global  user.password $GITHUB_TOKEN
-        git config --global  user.test $GITHUB_TOKEN
-        git config list
-
-        git remote -v
-        make
+        sudo docker run -v ${{ github.workspace }}:/home/build debian:bookworm /home/build/scripts/dockerun_bookworm.sh
+        #cd pve-kernel
+        #make
         echo "status=success" >> $GITHUB_OUTPUT
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
