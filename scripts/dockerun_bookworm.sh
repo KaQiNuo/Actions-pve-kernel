@@ -10,4 +10,4 @@ df -h
 useradd build -d /home/build/pve-kernel
 chown -R build /home/build/pve-kernel
 
-su - build -c "git config --local user.email 16986157+KaQiNuo@users.noreply.github.com;git config --local user.name KaQiNuo;make"
+su - build -c "make"

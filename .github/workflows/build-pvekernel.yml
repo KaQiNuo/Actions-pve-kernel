@@ -33,8 +33,8 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        git config --local user.email $EMAIL
-        git config --local user.name $USERENAME
+        git config --global user.email $EMAIL
+        git config --global user.name $USERENAME
         git pull
         #sudo chmod a+x $SCRIPTS_PATH/init_env.sh && sudo -E $SCRIPTS_PATH/init_env.sh
         
@@ -81,6 +81,9 @@ jobs:
         ls -l ${{ github.workspace }}
         #sudo docker run -v ${{ github.workspace }}:/home/build debian:bookworm /home/build/scripts/dockerun_bookworm.sh
         cd pve-kernel
+        git config --global  user.name $USERENAME
+        git config --global  user.password $GITHUB_TOKEN
+        git config list
         make
         echo "status=success" >> $GITHUB_OUTPUT
       env:
