@@ -21,6 +21,8 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     if: github.event.repository.owner.id == github.event.sender.id
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout
@@ -85,9 +87,20 @@ jobs:
         cd pve-kernel
         echo "version=$(ls abi-prev* | sed  's/abi-prev/pve-kernel/g' | sed 's/-pve//g')" >> $GITHUB_OUTPUT
 
-    - name: Upload kernel directory
-      uses: actions/upload-artifact@v4
+    - name: Publish GitHub Release
+      uses: softprops/action-gh-release@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: ${{ format('{0}-kaqinuo', steps.getverion.outputs.version) }}
-        path: pve-kernel/release
+        tag_name: ${{ steps.getverion.outputs.version }}
+        name: ${{ steps.getverion.outputs.version }}
+        body: |
+          Automated build of the Proxmox VE kernel from upstream `master`.
+
+          - ACS override patch is self-hosted and forces `pcie_acs_override`
+            to apply to every PCIe device
+          - `DEBUG_INFO_BTF` disabled
+          - `fwcheck` disabled
+        files: pve-kernel/release/*.deb
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
