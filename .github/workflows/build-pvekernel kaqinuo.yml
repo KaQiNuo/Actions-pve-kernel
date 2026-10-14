@@ -7,6 +7,9 @@ on:
       - master
     paths:
       - '.configkaqinuo'
+      - 'scripts/**'
+      - 'patches/**'
+      - '.github/workflows/build-pvekernel kaqinuo.yml'
 
 env:
   REPO_URL: https://git.proxmox.com/git/pve-kernel.git
