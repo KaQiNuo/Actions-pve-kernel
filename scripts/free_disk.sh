@@ -22,7 +22,7 @@ rm -rf /usr/lib/jvm
 rm -rf /usr/share/az_*
 rm -rf /opt/pipx
 rm -rf /opt/hostedtoolcache
-docker rmi $(docker image ls -q --filter "reference=node*")
-docker rmi $(docker image ls -q --filter "reference=buildpack*")
-docker rmi $(docker image ls -q --filter "reference=alpine*")
-docker rmi $(docker image ls -q --filter "reference=ubuntu*")
+docker rmi $(docker image ls -q --filter "reference=node*") 2>/dev/null || true
+docker rmi $(docker image ls -q --filter "reference=buildpack*") 2>/dev/null || true
+docker rmi $(docker image ls -q --filter "reference=alpine*") 2>/dev/null || true
+docker rmi $(docker image ls -q --filter "reference=ubuntu*") 2>/dev/null || true
